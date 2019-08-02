@@ -13,6 +13,6 @@ if [ $PROJECT_LATEST_TAG != $NPC_LATEST_TAG ]; then
   sed -i '' "s#NPC_VERSION=.*#NPC_VERSION=$NPC_LATEST_TAG#" Dockerfile
   git add Dockerfile
   git commit -m "feat: 升级 npc 版本 [$NPC_LATEST_TAG]"
-  git tag $NPC_LATEST_TAG
+  git tag -a "$NPC_LATEST_TAG" -m "npc v$NPC_LATEST_TAG"
   git push origin --follow-tags --quiet &> /dev/null
 fi
