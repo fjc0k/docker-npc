@@ -10,7 +10,6 @@ steps:
     GITHUB_TOKEN:
       from_secret: github_access_token
   commands:
-    - ls -a
     - chmod +x ./update.sh
     - ./update.sh
 
