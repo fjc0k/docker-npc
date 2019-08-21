@@ -8,6 +8,7 @@ WORKDIR /npc
 
 RUN apk add --update --no-cache wget
 RUN mkdir tmp \
+  && cd tmp \
   && wget ${NPC_DOWNLOAD_URL} \
   && tar -xzf *.tar.gz \
   && mv $(find -name npc) ../npc \
