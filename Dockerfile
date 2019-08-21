@@ -10,7 +10,7 @@ RUN apk add --update --no-cache wget
 RUN mkdir tmp \
   && wget ${NPC_DOWNLOAD_URL} \
   && tar -xzf *.tar.gz \
-  && mv $(find -name npc) .. \
+  && mv $(find -name npc) ../npc \
   && cd .. \
   && rm -rf tmp \
   && chmod +x npc
