@@ -7,9 +7,11 @@ ENV NPC_DOWNLOAD_URL=https://github.com/cnlh/nps/releases/download/v${NPC_VERSIO
 WORKDIR /npc
 
 RUN apk add --update --no-cache wget
-RUN wget ${NPC_DOWNLOAD_URL} \
+RUN mkdir tmp \
+  && wget ${NPC_DOWNLOAD_URL} \
   && tar -xzf *.tar.gz \
-  && rm *.tar.gz \
+  && mv $(find -name npc) .. \
+  && rm -rf tmp \
   && chmod +x npc
 
 
@@ -20,4 +22,4 @@ WORKDIR /npc
 
 COPY --from=source /npc .
 
-ENTRYPOINT [ "./npc" ]
+ENTRYPOINT ["./npc"]
