@@ -1,7 +1,7 @@
 ######## 源码 ########
 FROM alpine as source
 
-ENV NPC_VERSION=0.24.0
+ENV NPC_VERSION=0.24.1
 ENV NPC_DOWNLOAD_URL=https://github.com/cnlh/nps/releases/download/v${NPC_VERSION}/linux_amd64_client.tar.gz
 
 WORKDIR /npc
