@@ -8,10 +8,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Update
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         PROJECT_LATEST_TAG=$(wget -q -O- "https://api.github.com/repos/${GITHUB_REPOSITORY}/tags" | grep '"name":' | sed -E 's#.*"(.+)".*#\1#' | head -n1)
         NPC_LATEST_TAG=$(wget -q -O- https://api.github.com/repos/cnlh/nps/releases/latest | grep '"tag_name":' | sed -E 's#.*"v(.+)".*#\1#' | head -n1)
@@ -20,8 +18,8 @@ jobs:
         echo "docker-npc: $PROJECT_LATEST_TAG"
 
         if [ $PROJECT_LATEST_TAG != $NPC_LATEST_TAG ]; then
-          wget https://github.com/fjc0k/shx/raw/master/gha-gh-auth.sh && chmod +x gha-gh-auth.sh && ./gha-gh-auth.sh && rm -rf gha-gh-auth.sh
-          git checkout master
+          git config user.name "Bot"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           sed -i "s#NPC_VERSION=.*#NPC_VERSION=$NPC_LATEST_TAG#" Dockerfile
           git add Dockerfile
           git commit -m "feat: 升级 npc 版本 [$NPC_LATEST_TAG]"
